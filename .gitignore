@@ -1,2 +1,10 @@
 apify_storage
 node_modules
+
+.env
+.env.local
+
+
+*.zip
+
+out

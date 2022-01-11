@@ -9,10 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "chrome-aws-lambda": "^10.1.0",
-    "puppeteer-core": "^10.4.0"
-  },
-  "devDependencies": {
-    "puppeteer": "^13.0.1"
+    "aws-sdk": "^2.1055.0",
+    "redis": "^4.0.1"
   }
 }
