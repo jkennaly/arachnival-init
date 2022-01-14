@@ -3,13 +3,20 @@ const redis = require("redis");
 const client = redis.createClient({url: process.env.REDIS_URL});
 exports.handler = async (event, context, callback) => {
     let lineupUrl = ""
+    let evalOnly = false
     let responseCode = 200;
     //console.log("request: " + JSON.stringify(event));
     if (event.lineupUrl) {
         lineupUrl = event.lineupUrl;
     }
+    if (event.evalOnly) {
+        evalOnly = event.evalOnly;
+    }
     if (!lineupUrl && event.queryStringParameters && event.queryStringParameters.lineupUrl) {
         lineupUrl = event.queryStringParameters.lineupUrl;
+    }
+    if (!evalOnly && event.queryStringParameters && event.queryStringParameters.evalOnly) {
+        evalOnly = event.queryStringParameters.evalOnly === 'true'
     }
   	if(!lineupUrl) return callback('No lineupUrl query parameter' + JSON.stringify(event))
     const leKey = 'arach-lineup.' + lineupUrl
@@ -27,7 +34,7 @@ exports.handler = async (event, context, callback) => {
 			.then(data => {
 				//console.log('From Redis', data)
 				//return real data should be 200
-				if (data && data.status !== 'pending') {
+				if (!evalOnly && data && data.status !== 'pending') {
 					 const response = {
 				        "statusCode": 200,
 				        "headers": {
@@ -38,7 +45,7 @@ exports.handler = async (event, context, callback) => {
 				    return callback(null, response)
 				} 
 				//return placeholder-should be a 202 not 200
-				if (data) {
+				if (!evalOnly && data) {
 					 const response = {
 				        "statusCode": 202,
 				        "headers": {
@@ -53,10 +60,11 @@ exports.handler = async (event, context, callback) => {
 					lineupUrl: lineupUrl,
 					status: 'pending',
 					triggered: Date.now(),
-					eta: Date.now() + 120*1000
+					eta: Date.now() + 120*1000,
+					evalOnly: evalOnly
 				}
 				return client.set(leKey, JSON.stringify(pendingObject), {
-					EX: 60 * 3
+					EX: evalOnly ? 1 : 60 * 3
 				})
 					.then(() => {
 						const awsRegion = "us-east-1";
