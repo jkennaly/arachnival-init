@@ -38,6 +38,10 @@ exports.handler = async (event, context, callback) => {
 					 const response = {
 				        "statusCode": 200,
 				        "headers": {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "https://www.example.com",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        
 				        },
 				        "body": JSON.stringify(data),
 				        "isBase64Encoded": false
@@ -49,6 +53,10 @@ exports.handler = async (event, context, callback) => {
 					 const response = {
 				        "statusCode": 202,
 				        "headers": {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "https://www.example.com",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        
 				        },
 				        "body": JSON.stringify(data),
 				        "isBase64Encoded": false
@@ -83,6 +91,10 @@ exports.handler = async (event, context, callback) => {
 								 const response = {
 							        "statusCode": 202,
 							        "headers": {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "https://www.example.com",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        
 							        },
 							        "body": JSON.stringify(pendingObject),
 							        "isBase64Encoded": false
