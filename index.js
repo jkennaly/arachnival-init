@@ -39,7 +39,7 @@ exports.handler = async (event, context, callback) => {
 				        "statusCode": 200,
 				        "headers": {
             "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "https://www.example.com",
+            "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
         
 				        },
@@ -54,7 +54,7 @@ exports.handler = async (event, context, callback) => {
 				        "statusCode": 202,
 				        "headers": {
             "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "https://www.example.com",
+            "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
         
 				        },
@@ -92,7 +92,7 @@ exports.handler = async (event, context, callback) => {
 							        "statusCode": 202,
 							        "headers": {
             "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "https://www.example.com",
+            "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
         
 							        },
